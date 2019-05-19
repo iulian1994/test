@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{fragments/layout :: layout (~{::body},'clients')}">
+
+  <body>
+  
+  
+    <h2>Client Information</h2>
+  
+  
+    <table class="table table-striped" th:object="${client}">
+      <tr>
+        <th>Name</th>
+        <td><b th:text="*{companyName + ' ' + id}"></b></td>
+      </tr>
+      <tr>
+        <th>Address</th>
+        <td th:text="*{address}" /></td>
+      </tr>
+      <tr>
+        <th>City</th>
+        <td th:text="*{city}" /></td>
+      </tr>
+      <tr>
+        <th>Telephone</th>
+        <td th:text="*{telephone}" /></td>
+      </tr>
+    </table>
+  
+    <a th:href="@{{id}/edit(id=${client.id})}" class="btn btn-default">Edit
+      Client</a>
+    <a th:href="@{{id}/credits/new(id=${client.id})}" class="btn btn-default">Add
+      New credit</a>
+  
+    <br />
+    <br />
+    <br />
+    <h2>Credits and Visits</h2>
+  
+    <table class="table table-striped">
+  
+      <tr th:each="pet : ${client.credits}">
+        <td valign="top">
+          <dl class="dl-horizontal">
+            <dt>Name</dt>
+            <dd th:text="${credit.name}" /></dd>
+            <dt>Birth Date</dt>
+            <dd
+              th:text="${#temporals.format(credit.creditDate, 'yyyy-MM-dd')}" /></dd>
+            <dt>Type</dt>
+            <dd th:text="${credit.type}" /></dd>
+          </dl>
+        </td>
+      </tr>
+  
+    </table>
+  
+  </body>
+
+</html>
